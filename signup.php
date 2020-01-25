@@ -9,7 +9,6 @@ if(Input::get('submit')) {
   $user->register( array(
     'name'      => Input::get('name'),
     'email'     => Input::get('email'),
-    'age'       => Input::get('age'),
     'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
   ));
 }

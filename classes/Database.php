@@ -71,7 +71,7 @@ class Database {
 
     /** Uji jika true return true */
     if ($this->mysqli->query($query)) return true;
-    else return false;
+    else echo "Ada Kesalahan saat insert data";
   }
 
 }
