@@ -1,4 +1,20 @@
-<?php include 'templates/header.php';?>
+<?php 
+require_once('core/init.php');
+
+/** Ini harus diletakan di atas header
+  * karena nanti tidak bisa redirect atau menggunakan fungsi lain karena sudah ada ouput include header */
+if(Input::get('submit')) {
+  $user->register( array(
+    'name'      => Input::get('name'),
+    'email'     => Input::get('email'),
+    'password'  => Input::get('password'),
+  ));
+}
+
+
+include 'templates/header.php';
+
+?>
 
 
 <div id="auth_oop">
@@ -12,18 +28,18 @@
           <form action="" method="post">
             <div class="form-group">
               <label for="name">Name: </label>
-              <input type="name" class="form-control">
+              <input type="name" name="name" class="form-control">
             </div>        
             <div class="form-group">
               <label for="email">Email: </label>
-              <input type="email" class="form-control">
+              <input type="email" name="email" class="form-control">
             </div>        
             <div class="form-group">
               <label for="password">Password : </label>
-              <input type="password" class="form-control">
+              <input type="password" name="password" class="form-control">
             </div>        
             <div class="form-group">
-              <input type="submit" class="btn btn-block btn-success" value="Submit">
+              <input type="submit" name="submit" class="btn btn-block btn-success" value="Submit">
             </div>        
           </form>
         </div>
