@@ -2,13 +2,17 @@
 
 class User {
 
-  $private $_db;
+  private $_db;
 
-  public function __construc() {
-    $this->$_db = DB::getInstance();
+  public function __construct() {
+    $this->_db = Database::getInstance();
   }
-  public function register('users', $fields) {
 
+  /** Fungsi register */
+  /* parameter di method ini adalah sebuah array */
+  public function register($fields = array()) {
+    if($this->_db->insert('users', $fields)) return true;
+    else return false;
   }
 
 

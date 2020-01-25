@@ -37,6 +37,43 @@ class Database {
   }
 
 
+
+  /** Method insert */
+  /* Fungsi ini punya 2 parameter
+    parameter ke 1 adalah nama table
+    parameter ke 2 adalah fields berupa array */ 
+  public function insert($table, $fields) {
+
+    /* ambil key dari array, ubah menjadi string dan pisahkan dengan koma,
+      ini akan di isi sebagai column pada query insert */
+    $column = implode(", ", array_keys($fields));
+
+    /* Ambil values dari array kemudian akan di isi sebagai values di query 
+      tapi ada yang perlu di uji terlebih dahulu karena mungkin saja akan ada string atau INT atau TUNYINT
+      karena memang untuk mengisi type data ini berbeda (String menggunakan kutif sedangkan INT tidak) */
+
+    /** Siapkan variable yang awalnya array kosong */
+    $values_array = [];
+    $i = 0; // untuk looping
+
+    /** Looping dan dapatkan valuesnya */
+    foreach($fields as $key => $val) {
+      $values_array[$i] = "'" . $val . "'";
+      $i++;
+    }
+
+    /** Gabungkan element array dari $values_array menjadi string dan dipisahkan dengan "koma" */
+    $values = implode(", ", $values_array);
+
+    /* query dibawah ini nanti jadinya kurang lebih seperti ini 
+      INSERT INTO users (name, email, password) VALUES('Riski','hi@riski.id','123') */
+    $query = "INSERT INTO $table ($column) VALUES ($values)";
+
+    /** Uji jika true return true */
+    if ($this->mysqli->query($query)) return true;
+    else return false;
+  }
+
 }
 
 ?>
