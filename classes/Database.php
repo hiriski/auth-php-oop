@@ -2,7 +2,6 @@
 
 
 class Database {
-  
   /** Membuat credentials */
   private static $_instance = null; // defaulnya null
   private $mysqli,
@@ -55,10 +54,9 @@ class Database {
     /** Siapkan variable yang awalnya array kosong */
     $values_array = [];
     $i = 0; // untuk looping
-
     /** Looping dan dapatkan valuesnya */
     foreach($fields as $key => $val) {
-      $values_array[$i] = "'" . $val . "'";
+      $values_array[$i] = "'" . self::escape($val) . "'";
       $i++;
     }
 
@@ -69,9 +67,24 @@ class Database {
       INSERT INTO users (name, email, password) VALUES('Riski','hi@riski.id','123') */
     $query = "INSERT INTO $table ($column) VALUES ($values)";
 
+    /** Jalankan query melalui method run_query() */
+    return self::run_query($query, "Ada kesahalan ketika insert data");
+  }
+
+
+  /** Method run query */
+  /* Method ini punya 2 parameter tapi parameter yang wajib cuma 1,
+    parameter ke 2 opsional ini adalah errornya */
+  private function run_query($name, $error = NULL) {
     /** Uji jika true return true */
-    if ($this->mysqli->query($query)) return true;
-    else echo "Ada Kesalahan saat insert data";
+    if ($this->mysqli->query($name)) return true;
+    else echo $error;
+  }
+
+
+  /** Method escape */
+  private function escape($name){
+    return $this->mysqli->real_escape_string($name);
   }
 
 }
