@@ -1,5 +1,8 @@
-<?php include 'templates/header.php';?>
+<?php 
+require_once('core/init.php');
+include_once('templates/header.php');
 
+?>
 
 
 <div id="auth_oop">

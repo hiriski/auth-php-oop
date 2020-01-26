@@ -13,3 +13,19 @@ spl_autoload_register( function($file_name){
 });
 
 $user = new User();
+
+
+/** Function base_url() */
+function base_url($param = null) {
+  $host = $_SERVER['HTTP_HOST'];
+  $name = $_SERVER['SCRIPT_NAME'];
+
+  /* replace basename() misal /index.php dengan string kosong */
+  $scriptname = str_replace(basename($name), '', $name);
+  if(isset($_SERVER['HTTPS'])) {
+    return "https://" . $host . $scriptname . $param;
+  }
+  else {
+    return "http://" . $host . $scriptname . $param;
+  }
+}

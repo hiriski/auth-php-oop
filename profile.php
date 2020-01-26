@@ -2,6 +2,16 @@
 require_once('core/init.php');
 include 'templates/header.php';
 
+
+
+if (Session::exists('email')) {
+  echo "Hello World";
+} else {
+  echo "Masuk else nih";
+}
+
+
+
 ?>
 
 <div class="container">
