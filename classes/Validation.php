@@ -17,7 +17,7 @@ class Validation {
                     case 'required':
                         /* jika di trim inputan kosong dan isi dari required true masuk sisi */
                         if( trim(Input::get($item)) == false && $rule_value == true ) {
-                            self::addError("$rule wajib diisi");
+                            self::addError("Kolom " . ucfirst($item) . " wajib diisi");
                         }
                         break;
                     case 'min':
@@ -27,7 +27,7 @@ class Validation {
                         break;
                     case 'max':
                         if(strlen(Input::get($item)) > $rule_value){
-                            self::addError("$item maxsimal $rule_value karakter");
+                            self::addError("$item maksimal $rule_value karakter");
                         }
                         break;
                     default:
