@@ -11,3 +11,5 @@ session_start();
 spl_autoload_register( function($file_name){
   require_once 'classes/' . $file_name . '.php';
 });
+
+$user = new User();
