@@ -25,9 +25,13 @@ $input_errors = [];
       'email'     => Input::get('email'),
       'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
     ));
+
+    /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
+    Session::set('email', Input::get('email'));
+    header('Location: profile.php');
+
   } else {
     $input_errors = $validation->show_errors();
-    
   }
 
 }
