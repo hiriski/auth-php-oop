@@ -1,16 +1,12 @@
 <?php
 require_once('core/init.php');
-include 'templates/header.php';
 
-
-
-if (Session::exists('email')) {
-  echo "Hello World";
-} else {
-  echo "Masuk else nih";
+/** Uji apakah sessionya ada ? jika tidak ada lemparkan user ke halaman signin */
+if(!Session::exists('email')) {
+  header('Location: signin.php');
 }
 
-
+include 'templates/header.php';
 
 ?>
 
@@ -18,7 +14,7 @@ if (Session::exists('email')) {
   <div class="row my-5">
     <div class="col-sm-12 col-md-6 mx-auto">
       <div class="main-heading text-center">
-        <h4>Profile Page</h4>
+        <h4>Profile</h4>
       </div>
       <div class="jumbotron">
         <h2>Hi, <?=Session::get('email');?></h2>

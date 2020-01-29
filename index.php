@@ -31,6 +31,15 @@ include_once('templates/header.php');
                             </div>
                         </a>
                     </div>
+                    <div class="col-12">
+                        <a href="<?php echo base_url('profile.php');?>">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h4>Go to profile page</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div> <!-- .row -->
             </div>
         </div>
