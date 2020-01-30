@@ -83,11 +83,12 @@ class Database {
       if(!is_int($value)) $value = "'" . $value . "'";
       $query = "SELECT * FROM $table WHERE $column = $value";
 
-      /* uji */
-      if ($runquery = $this->mysqli->query($query)) {
-        /** karna hasilnya sudah dipastikan hanya ada 1 row maka nggak perlu di loop pake while lagi. langsung saja keluarkan dengan ->fetch_assoc | fetch_object */
-        $result = $runquery->fetch_object(); // output object
-        return $result;
+      /* uji sekalian di deklasari ke variable */
+      if ($result = $this->mysqli->query($query)) {
+        /* keluarkan hasilnya dengan fetch_object saja */
+        while($row = $result->fetch_object()) {
+          return $row;
+        }
       }
 
     }

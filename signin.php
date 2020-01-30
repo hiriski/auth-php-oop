@@ -16,13 +16,21 @@ $input_errors = [];
     $user_email = Input::get('email');
     $user_pass  = Input::get('password');
 
-    if($user->singin($user_email, $user_pass)) {
-      /** setelah user berhasil singin  Set Session kemudian lemparkan user ke profile.php */
-      Session::set('email', Input::get('email'));
-      header('Location: profile.php');
+    /* pengujian pertama mengecek apakah email sudah terdaftar atau belum */
+    if($user->check_email(Input::get('email'))) {
+
+      if($user->singin($user_email, $user_pass)) {
+        /** setelah user berhasil singin  Set Session kemudian lemparkan user ke profile.php */
+        Session::set('email', Input::get('email'));
+        header('Location: profile.php');
+      }
+      else {
+        echo 'Gagal signin';
+      }
     }
+    
     else {
-      echo 'Gagal signin';
+      echo "Email ini belum terdaftar";
     }
   }
   else {
