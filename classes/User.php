@@ -16,6 +16,16 @@ class User {
   }
 
 
+
+  /** method signin */
+  public function singin($email, $password) {
+    $credentials = $this->_db->get_user_info('users', 'email', $email);
+
+    /* Mencocokan input password user dengan password yang sudah di hash di database */
+    if(password_verify($password, $credentials->password)) return true;
+    else return false;
+  }
+
 }
 
 

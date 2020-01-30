@@ -72,6 +72,27 @@ class Database {
   }
 
 
+
+  /** method get_user_info */
+  /* Method ini punya 3 parameter
+    parameter ke 1 : nama table
+    parameter ke 2 : nama kolom
+    parameter ke 3 : value yang ingin dicari */
+    public function get_user_info($table, $column, $value) {
+      /* uji. Jika inputan user bukan integer tambahkan kutif */
+      if(!is_int($value)) $value = "'" . $value . "'";
+      $query = "SELECT * FROM $table WHERE $column = $value";
+
+      /* uji */
+      if ($runquery = $this->mysqli->query($query)) {
+        /** karna hasilnya sudah dipastikan hanya ada 1 row maka nggak perlu di loop pake while lagi. langsung saja keluarkan dengan ->fetch_assoc | fetch_object */
+        $result = $runquery->fetch_object(); // output object
+        return $result;
+      }
+
+    }
+
+
   /** Method run query */
   /* Method ini punya 2 parameter tapi parameter yang wajib cuma 1,
     parameter ke 2 opsional ini adalah errornya */
@@ -86,6 +107,11 @@ class Database {
   private function escape($name){
     return $this->mysqli->real_escape_string($name);
   }
+  
+
+
+
+
 
 }
 
