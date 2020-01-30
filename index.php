@@ -31,6 +31,7 @@ include_once('templates/header.php');
                             </div>
                         </a>
                     </div>
+                    <?php if(Session::exists('email')):?>
                     <div class="col-12">
                         <a href="<?php echo base_url('profile.php');?>">
                             <div class="card">
@@ -40,6 +41,7 @@ include_once('templates/header.php');
                             </div>
                         </a>
                     </div>
+                    <?php endif;?>
                 </div> <!-- .row -->
             </div>
         </div>

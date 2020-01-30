@@ -22,12 +22,19 @@
           </button>
           <div class="collapse navbar-collapse" id="top_nav">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
+
+            <?php if(!Session::exists('email')): ?>
+              <li class="nav-item">
                 <a href="<?php echo base_url('signin.php');?>" class="nav-link text-white">Sign in</a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo base_url('signup.php');?>" class="nav-link text-white">Sign Up</a>
               </li>
+            <?php else:?>
+              <li class="nav-item">
+                <a href="<?php echo base_url('signout.php');?>" class="nav-link text-white">Sing Out</a>
+              </li>
+            <?php endif;?>
             </ul>
           </div>
         </nav>
