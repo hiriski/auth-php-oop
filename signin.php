@@ -1,6 +1,13 @@
 <?php 
 require_once('core/init.php');
 
+/* pengujian apakah session si user sudah ada ?
+  jika ada si user ini nggak boleh signin lagi tapi redirect ke profile.php */
+if (Session::exists('email')) {
+  header('Location: profile.php');
+}
+
+
 $input_errors = [];
 
   if(Input::get('submit')) {
@@ -28,7 +35,7 @@ $input_errors = [];
         echo 'Gagal signin';
       }
     }
-    
+
     else {
       echo "Email ini belum terdaftar";
     }

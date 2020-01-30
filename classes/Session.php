@@ -2,9 +2,9 @@
 
 class Session {
 
-    /** Method set session */
-    /*  method ini punya 2 parameter
-        * parameter pertama adalah key dan parameter kedua adalah valuenya */
+    /* Method set session
+        method ini punya 2 parameter
+        parameter pertama adalah key dan parameter kedua adalah valuenya */
     public static function set($key, $value) {
         return $_SESSION[$key] = $value;
     }

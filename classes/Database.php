@@ -37,8 +37,8 @@ class Database {
 
 
 
-  /** Method insert */
-  /* Fungsi ini punya 2 parameter
+  /* Method insert
+    Fungsi ini punya 2 parameter
     parameter ke 1 adalah nama table
     parameter ke 2 adalah fields berupa array */ 
   public function insert($table, $fields) {
@@ -78,24 +78,24 @@ class Database {
     parameter ke 1 : nama table
     parameter ke 2 : nama kolom
     parameter ke 3 : value yang ingin dicari */
-    public function get_user_info($table, $column, $value) {
-      /* uji. Jika inputan user bukan integer tambahkan kutif */
-      if(!is_int($value)) $value = "'" . $value . "'";
-      $query = "SELECT * FROM $table WHERE $column = $value";
+  public function get_user_info($table, $column, $value) {
+    /* uji. Jika inputan user bukan integer tambahkan kutif */
+    if(!is_int($value)) $value = "'" . $value . "'";
+    $query = "SELECT * FROM $table WHERE $column = $value";
 
-      /* uji sekalian di deklasari ke variable */
-      if ($result = $this->mysqli->query($query)) {
-        /* keluarkan hasilnya dengan fetch_object saja */
-        while($row = $result->fetch_object()) {
-          return $row;
-        }
+    /* uji sekalian di deklasari ke variable */
+    if ($result = $this->mysqli->query($query)) {
+      /* keluarkan hasilnya dengan fetch_object saja */
+      while($row = $result->fetch_object()) {
+        return $row;
       }
-
     }
 
+  }
 
-  /** Method run query */
-  /* Method ini punya 2 parameter tapi parameter yang wajib cuma 1,
+
+  /* Method run query
+    Method ini punya 2 parameter tapi parameter yang wajib cuma 1,
     parameter ke 2 opsional ini adalah errornya */
   private function run_query($name, $error = NULL) {
     /** Uji jika true return true */

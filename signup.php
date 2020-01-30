@@ -1,10 +1,18 @@
 <?php 
 require_once('core/init.php');
 
+/* pengujian apakah session si user sudah ada ?
+  jika ada si user ini nggak boleh signup lagi tapi redirect ke profile.php */
+if (Session::exists('email')) {
+  header('Location: profile.php');
+}
+
+
+
 /** Inisialisasi variable $errors bertype array untuk menampilkan error lebih spesifik */
 $input_errors = [];
 
-  /** Ini harus diletakan di atas header
+  /* Ini harus diletakan di atas header
     * karena nanti tidak bisa redirect atau menggunakan fungsi lain karena sudah ada ouput include header */
   if(Input::get('submit')) {
 

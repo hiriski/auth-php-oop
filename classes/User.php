@@ -32,8 +32,9 @@ class User {
     Method ini hampir mirip dengan method signin, yaitu sama2 menggunakan method get_user_info di class Database untuk mengecek data user. Jika hasil query di method get_user_info ada maka return true */
   public function check_email($email) {
     $credentials = $this->_db->get_user_info('users', 'email', $email);
-    /* Jika email yang di masukan user ada di database berarti variable $credentialas ada hasil maka return true
-    tapi jika tidak ada hasil return false */
+    /* Jika email yang di masukan user ada di database
+      berarti variable $credentialas ada hasil maka return true
+      tapi jika tidak ada hasil return false */
     if(!empty($credentials)) return true;
   }
 
