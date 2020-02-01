@@ -3,4 +3,4 @@
 require_once('core/init.php');
 session_destroy();
 
-redirect('singin');
+redirect('signin');
