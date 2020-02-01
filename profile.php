@@ -19,7 +19,12 @@ if(Session::exists('profile')) {
 
 include 'templates/header.php';
 
+
+/* Data user */
+$data = $user->get(Session::get('email'));
+
 ?>
+
 
 
 
@@ -43,7 +48,8 @@ include 'templates/header.php';
         <h4>Profile</h4>
       </div>
       <div class="jumbotron">
-        <h2>Hi, <?=Session::get('email');?></h2>
+        <h2>Hi,<?php echo $data->name; ?></h2>
+        <p><?php echo $data->email; ?></p>
         <p class="lead">Welcome to Profile page!</p>
       </div>
     </div>

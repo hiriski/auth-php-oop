@@ -12,9 +12,9 @@ require_once('core/init.php');
 /** Inisialisasi variable $errors bertype array untuk menampilkan error lebih spesifik */
 $input_errors = [];
 
-  /* Ini harus diletakan di atas header
-    * karena nanti tidak bisa redirect atau menggunakan fungsi lain karena sudah ada ouput include header */
-  if(Input::get('submit')) {
+/* Ini harus diletakan di atas header
+  * karena nanti tidak bisa redirect atau menggunakan fungsi lain karena sudah ada ouput include header */
+if(Input::get('submit')) {
 
   /* uji dulu apakah token di input token sama dengan yang ada di session 
     jika sama lanjutkan ke tahap selanjutnya */

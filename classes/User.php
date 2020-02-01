@@ -65,6 +65,16 @@ class User {
   }
 
 
+
+  /** method get data user */
+  public function get($email) {
+    if ($this->check_email($email)) {
+      /* biasakan uji dulu sebelum menampilkan, ada apa nggak datanya */
+      return $this->_db->get_user_info('users', 'email', $email);
+    }
+  }
+
+
 }
 
 
