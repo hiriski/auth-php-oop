@@ -22,24 +22,33 @@ $input_errors = [];
 
   /** Metode check validation */
   $validation = $validation->check(array(
-    "name"     => array('required' => true, 'min' => 5, 'max' => 75),
-    "email"    => array('required' => true, 'min' => 5,'max' => 255),
-    "password" => array('required' => true, 'min' => 3)
+    "name"            => array('required' => true, 'min' => 5, 'max' => 75),
+    "email"           => array('required' => true, 'min' => 5,'max' => 255),
+    "password"        => array('required' => true, 'min' => 3),
+    "password_verify" => array('required' => true, 'match' => 'password')
   ));
 
-  if($validation->passed()) {
-    $user->register( array(
-      'name'      => Input::get('name'),
-      'email'     => Input::get('email'),
-      'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
-    ));
 
-    /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
-    Session::set('email', Input::get('email'));
-    header('Location: profile.php');
-
-  } else {
-    $input_errors = $validation->show_errors();
+  /* uji apakah email sudah pernah didaftarkan atau belum
+    jika sudah tampilkan error tapi jika tidak lanjutkan register */
+  if ($user->check_email(Input::get('email'))) {
+    echo "Email ini sudah di daftarkan";
+  }
+  else {
+    if ($validation->passed()) {
+      $user->register( array(
+        'name'      => Input::get('name'),
+        'email'     => Input::get('email'),
+        'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
+      ));
+  
+      /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
+      Session::set('email', Input::get('email'));
+      header('Location: profile.php');
+  
+    } else {
+      $input_errors = $validation->show_errors();
+    }
   }
 
 }
@@ -74,15 +83,19 @@ include 'templates/header.php';
             <div class="form-group">
               <label for="name">Name: </label>
               <input type="name" name="name" class="form-control">
-            </div>        
+            </div>
             <div class="form-group">
               <label for="email">Email: </label>
               <input type="email" name="email" class="form-control">
-            </div>        
+            </div>
             <div class="form-group">
               <label for="password">Password : </label>
               <input type="password" name="password" class="form-control">
-            </div>        
+            </div>
+            <div class="form-group">
+              <label for="password">Re-enter password : </label>
+              <input type="password" name="password_verify" class="form-control">
+            </div>
             <div class="form-group">
               <input type="submit" name="submit" class="btn btn-block btn-success" value="Submit">
             </div>        

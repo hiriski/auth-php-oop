@@ -20,16 +20,27 @@ class Validation {
                             self::addError("Kolom " . ucfirst($item) . " wajib diisi");
                         }
                         break;
+
                     case 'min':
                         if(strlen(Input::get($item)) < $rule_value){
                             self::addError("$item minimal $rule_value karakter");
                         }
                         break;
+
                     case 'max':
                         if(strlen(Input::get($item)) > $rule_value){
                             self::addError("$item maksimal $rule_value karakter");
                         }
                         break;
+
+                    /* case password match */
+                    case 'match':
+                        /** jika password tidak sama dengan input password_verify tambahkan error */
+                        if( Input::get('password') != Input::get($item) ){
+                            self::addError("$item tidak sama");
+                        }
+                        break;
+                        
                     default:
                         break;
                 }
