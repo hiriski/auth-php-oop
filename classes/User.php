@@ -51,6 +51,20 @@ class User {
     else return false;
   }
 
+
+
+  /* method is_loggedin
+    fungsi ini akan digunakan untuk mengecek status user apakah sudah login atau belum 
+    buat pake static aja biar beda 
+    
+    method ini sebenarnya akan menggantikan fungsi pengujian yang ada di signin.php dan signup.php dan profile */
+  public static function is_loggedin() {
+    /* apakah session si user sudah ada ? jika ada return true */
+    if (Session::exists('email')) return true;
+    else return false;
+  }
+
+
 }
 
 

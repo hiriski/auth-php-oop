@@ -2,11 +2,11 @@
 require_once('core/init.php');
 
 /* pengujian apakah session si user sudah ada ?
-  jika ada si user ini nggak boleh signin lagi tapi redirect ke profile.php */
-if (Session::exists('email')) {
+  jika ada si user ini nggak boleh signin lagi tapi redirect ke profile.php 
+  (fungsi ini menggunakan method is_loggedin yang ada di class User */
+if( $user::is_loggedin() ) {
   redirect('profile');
 }
-
 
 /* Menampilkan flash message ketika user mencoba mengakses halaman profile
   dan kemudian di lemparkan ke halaman ini */

@@ -2,7 +2,7 @@
 require_once('core/init.php');
 
 /** Uji apakah sessionya ada ? jika tidak ada lemparkan user ke halaman signin */
-if(!Session::exists('email')) {
+if( !$user::is_loggedin() ) {
   /* Sebelum di redirect
     store dulu flash message. Jadi nanti idenya
     si user akan mendapatkan flash message bahwa ia harus login dulu
