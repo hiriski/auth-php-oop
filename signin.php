@@ -19,38 +19,45 @@ $input_errors = [];
 
   if(Input::get('submit')) {
 
-  $validation = new Validation();
-  $validation = $validation->check(array(
-    "email"    => array('required' => true),
-    "password" => array('required' => true)
-  ));
-
-  if($validation->passed()) {
-
-    $user_email = Input::get('email');
-    $user_pass  = Input::get('password');
-
-    /* pengujian pertama mengecek apakah email sudah terdaftar atau belum */
-    if($user->check_email(Input::get('email'))) {
-
-      if($user->singin($user_email, $user_pass)) {
-        /** setelah user berhasil singin  Set Session kemudian lemparkan user ke profile.php */
-        Session::set('email', Input::get('email'));
-        redirect('profile');
+  /* uji dulu apakah token di input token sama dengan yang ada di session 
+    jika sama lanjutkan ke tahap selanjutnya */
+  if(Token::check(Input::get('token'))) {
+    $validation = new Validation();
+    $validation = $validation->check(array(
+      "email"    => array('required' => true),
+      "password" => array('required' => true)
+    ));
+  
+    if($validation->passed()) {
+  
+      $user_email = Input::get('email');
+      $user_pass  = Input::get('password');
+  
+      /* pengujian pertama mengecek apakah email sudah terdaftar atau belum */
+      if($user->check_email(Input::get('email'))) {
+  
+        if($user->singin($user_email, $user_pass)) {
+          /** setelah user berhasil singin  Set Session kemudian lemparkan user ke profile.php */
+          Session::set('email', Input::get('email'));
+          redirect('profile');
+        }
+        else {
+          echo 'Gagal signin';
+        }
       }
+  
       else {
-        echo 'Gagal signin';
+        echo "Email ini belum terdaftar";
       }
     }
-
     else {
-      echo "Email ini belum terdaftar";
+      $input_errors = $validation->show_errors();
     }
-  }
+  } // end of token
   else {
-    $input_errors = $validation->show_errors();
+    echo "Token not valid";
   }
-
+  
 }
 
 
@@ -88,6 +95,9 @@ include 'templates/header.php';
               <input type="password" name="password" class="form-control">
             </div>        
             <div class="form-group">
+                  
+              <!-- CSRF TOKEN -->
+              <input type="hidden" name="token" value="<?php echo Token::generate();?>">
               <input type="submit" name="submit" class="btn btn-block btn-success" value="Submit">
             </div>        
           </form>

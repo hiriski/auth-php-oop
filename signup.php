@@ -16,42 +16,51 @@ $input_errors = [];
     * karena nanti tidak bisa redirect atau menggunakan fungsi lain karena sudah ada ouput include header */
   if(Input::get('submit')) {
 
-  /** VALIDATION */
-  /* Panggil object validation */
-  $validation = new Validation();
+  /* uji dulu apakah token di input token sama dengan yang ada di session 
+    jika sama lanjutkan ke tahap selanjutnya */
+  if(Token::check(Input::get('token'))) {
 
-  /** Metode check validation */
-  $validation = $validation->check(array(
-    "name"            => array('required' => true, 'min' => 5, 'max' => 75),
-    "email"           => array('required' => true, 'min' => 5,'max' => 255),
-    "password"        => array('required' => true, 'min' => 3),
-    "password_verify" => array('required' => true, 'match' => 'password')
-  ));
-
-
-  /* uji apakah email sudah pernah didaftarkan atau belum
-    jika sudah tampilkan error tapi jika tidak lanjutkan register */
-  if ($user->check_email(Input::get('email'))) {
-    echo "Email ini sudah di daftarkan";
-  }
-  else {
-    if ($validation->passed()) {
-      $user->register( array(
-        'name'      => Input::get('name'),
-        'email'     => Input::get('email'),
-        'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
-      ));
+    /** VALIDATION */
+    /* Panggil object validation */
+    $validation = new Validation();
   
-      /** Panggil method flash di class Session */
-      Session::flash('profile', 'Yey.. register successfull');
-
-      /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
-      Session::set('email', Input::get('email'));
-      redirect('profile');
+    /** Metode check validation */
+    $validation = $validation->check(array(
+      "name"            => array('required' => true, 'min' => 5, 'max' => 75),
+      "email"           => array('required' => true, 'min' => 5,'max' => 255),
+      "password"        => array('required' => true, 'min' => 3),
+      "password_verify" => array('required' => true, 'match' => 'password')
+    ));
   
-    } else {
-      $input_errors = $validation->show_errors();
+  
+    /* uji apakah email sudah pernah didaftarkan atau belum
+      jika sudah tampilkan error tapi jika tidak lanjutkan register */
+    if ($user->check_email(Input::get('email'))) {
+      echo "Email ini sudah di daftarkan";
     }
+    else {
+      if ($validation->passed()) {
+        $user->register( array(
+          'name'      => Input::get('name'),
+          'email'     => Input::get('email'),
+          'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
+        ));
+    
+        /** Panggil method flash di class Session */
+        Session::flash('profile', 'Yey.. register successfull');
+  
+        /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
+        Session::set('email', Input::get('email'));
+        redirect('profile');
+    
+      } else {
+        $input_errors = $validation->show_errors();
+      }
+    }
+
+  } // end of token
+  else {
+    echo "Token not valid";
   }
 
 }
@@ -100,6 +109,8 @@ include 'templates/header.php';
               <input type="password" name="password_verify" class="form-control">
             </div>
             <div class="form-group">
+              <!-- CSRF TOKEN -->
+              <input type="hidden" name="token" value="<?php echo Token::generate();?>">
               <input type="submit" name="submit" class="btn btn-block btn-success" value="Submit">
             </div>        
           </form>
