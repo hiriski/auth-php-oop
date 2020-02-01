@@ -14,6 +14,12 @@ spl_autoload_register( function($file_name){
 
 $user = new User();
 
+/* redirect */
+function redirect($param) {
+  $redirect = new Redirect($param);
+  return $redirect;
+}
+
 
 /** Function base_url() */
 function base_url($param = null) {

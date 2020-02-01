@@ -8,7 +8,7 @@ if(!Session::exists('email')) {
     si user akan mendapatkan flash message bahwa ia harus login dulu
     untuk mengakses halaman ini */
   Session::flash('needlogin', 'Anda harus login dulu!');
-  header('Location: signin.php');
+  redirect('signin');
 }
 
 /* Periksa apakah session profile ada  ?

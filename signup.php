@@ -4,7 +4,7 @@ require_once('core/init.php');
 /* pengujian apakah session si user sudah ada ?
   jika ada si user ini nggak boleh signup lagi tapi redirect ke profile.php */
 if (Session::exists('email')) {
-  header('Location: profile.php');
+  redirect('profile');
 }
 
 
@@ -47,7 +47,7 @@ $input_errors = [];
 
       /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
       Session::set('email', Input::get('email'));
-      header('Location: profile.php');
+      redirect('profile');
   
     } else {
       $input_errors = $validation->show_errors();

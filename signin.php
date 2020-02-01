@@ -4,7 +4,7 @@ require_once('core/init.php');
 /* pengujian apakah session si user sudah ada ?
   jika ada si user ini nggak boleh signin lagi tapi redirect ke profile.php */
 if (Session::exists('email')) {
-  header('Location: profile.php');
+  redirect('profile');
 }
 
 
@@ -36,7 +36,7 @@ $input_errors = [];
       if($user->singin($user_email, $user_pass)) {
         /** setelah user berhasil singin  Set Session kemudian lemparkan user ke profile.php */
         Session::set('email', Input::get('email'));
-        header('Location: profile.php');
+        redirect('profile');
       }
       else {
         echo 'Gagal signin';
