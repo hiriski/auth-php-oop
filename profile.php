@@ -3,7 +3,18 @@ require_once('core/init.php');
 
 /** Uji apakah sessionya ada ? jika tidak ada lemparkan user ke halaman signin */
 if(!Session::exists('email')) {
+  /* Sebelum di redirect
+    store dulu flash message. Jadi nanti idenya
+    si user akan mendapatkan flash message bahwa ia harus login dulu
+    untuk mengakses halaman ini */
+  Session::flash('needlogin', 'Anda harus login dulu!');
   header('Location: signin.php');
+}
+
+/* Periksa apakah session profile ada  ?
+    jika ada panggil method flash di class Session */
+if(Session::exists('profile')) {
+  echo Session::get('profile');
 }
 
 include 'templates/header.php';

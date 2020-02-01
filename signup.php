@@ -42,6 +42,9 @@ $input_errors = [];
         'password'  => password_hash(Input::get('password'), PASSWORD_DEFAULT),
       ));
   
+      /** Panggil method flash di class Session */
+      Session::flash('profile', 'Yey.. register successfull');
+
       /** setelah user berhasil register Set Session kemudian lemparkan user ke profile.php */
       Session::set('email', Input::get('email'));
       header('Location: profile.php');

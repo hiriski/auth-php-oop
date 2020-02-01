@@ -8,6 +8,13 @@ if (Session::exists('email')) {
 }
 
 
+/* Menampilkan flash message ketika user mencoba mengakses halaman profile
+  dan kemudian di lemparkan ke halaman ini */
+if(Session::exists('needlogin')) {
+  echo Session::flash('needlogin');
+}
+
+
 $input_errors = [];
 
   if(Input::get('submit')) {
