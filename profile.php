@@ -21,6 +21,21 @@ include 'templates/header.php';
 
 ?>
 
+
+
+<!-- Cek apakah user ini admin ? jika admin jalankan fungsi2 dibawah ini -->
+<?php if( $user->is_admin(Session::get('email')) ):?>
+  <div class="container">
+    <div class="row text-center mt-5">
+      <div class="col-10 col-md-6 mx-auto">
+        <h3>Hello Admin</h3>
+      </div>
+    </div>
+  </div>
+<?php endif;?>
+
+
+
 <div class="container">
   <div class="row my-5">
     <div class="col-sm-12 col-md-6 mx-auto">

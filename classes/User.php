@@ -40,6 +40,16 @@ class User {
 
 
 
+  /* method untuk mengecek apakah user ini admin atau bukan
+    jika di kolom role = 2 itu adalah admin
+    tapi jika 1 itu user biasa 
+    
+    method ini hanya mengeluarkan boolean true jika ia admin false jika user biasa */
+  public function is_admin($email) {
+    $credentials = $this->_db->get_user_info('users', 'email', $email);
+    if($credentials->role == 2) return true;
+    else return false;
+  }
 
 }
 
