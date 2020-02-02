@@ -51,6 +51,14 @@ $data = $user->get(Session::get('email'));
         <h2>Hi,<?php echo $data->name; ?></h2>
         <p><?php echo $data->email; ?></p>
         <p class="lead">Welcome to Profile page!</p>
+
+        <div class="block">
+          <a 
+            href="<?php echo base_url('change-password.php');?>" 
+            class="btn btn-primary">Change Password
+          </a>
+        </div>
+
       </div>
     </div>
   </div>

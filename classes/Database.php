@@ -73,6 +73,31 @@ class Database {
 
 
 
+  /* update database */
+  public function update($table, $fields, $id) {
+    
+      $values_array = [];
+      $i = 0;
+      foreach($fields as $key => $val) {
+        // ini idenya nanti akan jadi seperti ini
+        // column='value'
+        $values_array[$i] =  $key . "=" . "'" . self::escape($val) . "'";
+        $i++;
+      }
+  
+      $values = implode(", ", $values_array);
+  
+      /* query dibawah ini nanti jadinya kurang lebih seperti ini 
+      UPDATE users SET column="value" WHERE id=1 */
+      $query = "UPDATE $table SET $values WHERE id=$id";
+
+      /** Jalankan query melalui method run_query() */
+      return self::run_query($query, "Ada kesahalan ketika insert data");
+  }
+
+
+
+
   /** method get_user_info */
   /* Method ini punya 3 parameter
     parameter ke 1 : nama table

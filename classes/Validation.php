@@ -36,7 +36,7 @@ class Validation {
                     /* case password match */
                     case 'match':
                         /** jika password tidak sama dengan input password_verify tambahkan error */
-                        if( Input::get('password') != Input::get($item) ){
+                        if( Input::get($item) !== Input::get($rule_value) ){
                             self::addError("$item tidak sama");
                         }
                         break;

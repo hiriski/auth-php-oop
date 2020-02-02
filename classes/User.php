@@ -75,6 +75,16 @@ class User {
   }
 
 
+
+  /* Method update user
+    Method ini hampir mirip dengan method register 
+    hanya yang membedakan di method ini menerima parameter $id
+    untuk memudahkan pengambilan data usernya */
+  public function update($fields = array(), $id) {
+    if($this->_db->update('users', $fields, $id)) return true;
+    else return false;
+  }
+
 }
 
 
